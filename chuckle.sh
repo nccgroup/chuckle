@@ -30,7 +30,7 @@ else
 	echo "No SMB hosts found."
 	exit;
 fi;
-localip=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
+localip=$(hostname -I)
 echo "Select local IP for reverse shell:"
 select lhost in $localip;
 do 
