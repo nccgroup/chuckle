@@ -1,4 +1,5 @@
 #!/bin/bash
+#Requires Nmap, Responder, SMBRelayX, Latest version of Veil, metasploit.
 trap 'kill $(jobs -p)'  EXIT
 clear
 echo "_________ .__                   __   .__          "
@@ -12,7 +13,7 @@ echo " Automated SMB-Relay Script"
 echo -e '\n'
 echo "Please enter IP or Network to scan for SMB:"
 read network;
-nmap -sS --script smb-security-mode.nse -p445 -oA chuckle $network  >>chuckle.log &
+nmap -n -Pn -sS --script smb-security-mode.nse -p445 -oA chuckle $network  >>chuckle.log &
 echo "Scanning for SMB hosts..."
 wait
 grep open chuckle.gnmap |cut -d " " -f 2 >./chuckle.hosts
