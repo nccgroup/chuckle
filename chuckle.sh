@@ -42,6 +42,9 @@ echo "Please enter IP or Network to scan for SMB:"
 read network
 nmap -n -Pn -sS --script smb-security-mode.nse -p445 -oA chuckle $network  >>chuckle.log &
 echo "Scanning for SMB hosts..."
+if [ $shownbt -gt 0 ]; then
+  echo "also resolving NBT name, could be quite slow"
+fi
 wait
 echo > ./chuckle.hosts
 for ip in $(grep open chuckle.gnmap |cut -d " " -f 2 ); do
