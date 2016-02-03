@@ -5,7 +5,7 @@
 #
 #http://www.github.com/nccgroup/chuckle
 #
-#Copyright 2015 Craig S. Blackie
+#Copyright 2016 Craig S. Blackie
 #
 #Released under Apache V2 see LICENCE for more information
 #
@@ -25,7 +25,8 @@ echo -e '\n'
 # print nbt name, slow on big networks
 # valid values: 0 1
 shownbt=1
-#determine wish version of Repsonder is being used.
+
+#determine which version of Repsonder is being used.
 if responder --version|grep 2.1>/dev/null; then
         newresver=0
 	echo "Using Responder 2.1.*"
