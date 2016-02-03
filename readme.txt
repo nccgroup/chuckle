@@ -4,8 +4,9 @@ Chuckle requires a few tools to work:
 
 SMBRelayX.py
 Veil (latest version from git)
-Responder (latest version due to a change in options)
+Responder (Comment out appropriate line if using latest version/old version due to a change in options relating to interface)
 Nmap
+Nbtscan (unixwiz)
 MSFconsole
 
 Usuage should be fairly simple, run as root or use sudo:
