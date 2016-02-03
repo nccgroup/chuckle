@@ -18,7 +18,7 @@ echo "/    \  \/|  |  \|  |  \_/ ___\|  |/ /  | _/ __ \ "
 echo "\     \___|   Y  \  |  /\  \___|    <|  |_\  ___/ "
 echo " \______  /___|  /____/  \___  >__|_ \____/\___  >"
 echo "        \/     \/            \/     \/         \/"
-echo "                                  CSB 2015"
+echo "                                  CSB 2016"
 echo " Automated SMB-Relay Script"
 echo -e '\n'
 
