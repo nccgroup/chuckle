@@ -4,7 +4,7 @@ Chuckle requires a few tools to work:
 
 SMBRelayX.py
 Veil (latest version from git)
-Responder (Comment out appropriate line if using latest version/old version due to a change in options relating to interface)
+Responder (Chuckle will detect which version you are using.)
 Nmap
 Nbtscan (unixwiz)
 MSFconsole
