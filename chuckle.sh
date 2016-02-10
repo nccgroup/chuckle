@@ -26,7 +26,14 @@ echo -e '\n'
 # valid values: 0 1
 shownbt=1
 
-#determine which version of Repsonder is being used.
+echo "Checking dependencies..."
+command -v responder >/dev/null 2>&1 || { echo "responder is required but not installed.  Aborting." >&2; exit 1; }
+command -v nmap >/dev/null 2>&1 || { echo "nmap is required but not installed.  Aborting." >&2; exit 1; }
+command -v veil-evasion >/dev/null 2>&1 || { echo "veil-evasion is required but not installed.  Aborting." >&2; exit 1; }
+command -v smbrelayx.py >/dev/null 2>&1 || { echo "smbrelayx.py is required but not installed.  Aborting." >&2; exit 1; }
+command -v msfconsole >/dev/null 2>&1 || { echo "msfconsole required but not installed.  Aborting." >&2; exit 1; }
+
+#determine which version of Responder is being used.
 if responder --version|grep 2.1>/dev/null; then
         newresver=0
 	echo "Using Responder 2.1.*"
