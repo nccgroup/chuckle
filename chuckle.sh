@@ -107,7 +107,7 @@ sleep 2
 echo "Starting Responder..."
 if [ $newresver -gt 0 ]; then
 	#New Responder
-	responder -I $(netstat -ie | grep -B1 $lhost  | head -n1 | awk '{print $1}' | sed '/://') -wrfF >>chuckle.log &	
+	responder -I $(netstat -ie | grep -B1 $lhost  | head -n1 | awk '{print $1}' | sed 's/://') -wrfF >>chuckle.log &	
 else
 	#Old Responder.
 	responder -i $lhost -wrfF >>chuckle.log &
